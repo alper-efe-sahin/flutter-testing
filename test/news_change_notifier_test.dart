@@ -27,12 +27,13 @@ void main() {
     "getArticles",
     () {
       final articlesFromService = [
-        Article(title: "Test1", content: "Test 1 content"),
-        Article(title: "Test2", content: "Test 2 content"),
-        Article(title: "Test3", content: "Test 3 content"),
+        Article(title: "Test 1", content: "Test 1 content"),
+        Article(title: "Test 2", content: "Test 2 content"),
+        Article(title: "Test 3", content: "Test 3 content"),
       ];
 
       void arrangeNewsServiceReturns3Articles() {
+        // getArticles dediğimizde gelen result fake servis üzerinden
         when(() => mockNewsService.getArticles()).thenAnswer(
           (_) async => articlesFromService,
         );
@@ -41,19 +42,15 @@ void main() {
       test(
         "gets articles using the NewsService",
         () async {
-          /*   when(() => mockNewsService.getArticles()).thenAnswer((_) async => []); */
-          // we call arrangenews... to avoid code duplications.
-          // It does not matter is it empty or not
-
           arrangeNewsServiceReturns3Articles();
-          await sut.getArticles();
+          await sut.getArticles(); // fake servis üzerinden getArticles() çağırılır.
           verify(() => mockNewsService.getArticles()).called(1);
         },
       );
 
       test(
         """indicates loading of data,
-        sets articles to the ones from the setvice,
+        sets articles to the ones from the service,
         indicates that data is not being loaded anymore""",
         () async {
           arrangeNewsServiceReturns3Articles();

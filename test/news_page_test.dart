@@ -24,13 +24,13 @@ void main() {
     Article(title: "Test3", content: "Test 3 content"),
   ];
 
-  void arrangeNewsServiceReturns3Articles() {
+  void arrangeNewsServiceReturns3Articles() { // normal list
     when(() => mockNewsService.getArticles()).thenAnswer(
       (_) async => articlesFromService,
     );
   }
 
-  void arrangeNewsServiceReturns3ArticlesAfter2SecondWait() {
+  void arrangeNewsServiceReturns3ArticlesAfter2SecondWait() { // future list 
     when(() => mockNewsService.getArticles()).thenAnswer(
       (_) async {
         await Future.delayed(const Duration(seconds: 2));
@@ -62,11 +62,11 @@ void main() {
     "loading indicator is displayed while waiting for articles",
     (WidgetTester tester) async {
       arrangeNewsServiceReturns3ArticlesAfter2SecondWait();
-      await tester.pumpWidget(createWidgetUnderTest());
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pumpWidget(createWidgetUnderTest()); //widgeti oluşturmaya sağlıyor, yani widgeti sağlıyor aslında
+      await tester.pump(); // build methodu gibi widgeti build ediyor
       expect(find.byKey(const Key("progress-indicator")), findsOneWidget);
 
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(); // This essentially waits for all animations to have completed. wait until them
     },
   );
 
