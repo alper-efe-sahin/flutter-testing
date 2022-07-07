@@ -4,21 +4,6 @@ import 'package:flutter_testing_tutorial/news_change_notifier.dart';
 import 'package:flutter_testing_tutorial/news_service.dart';
 import 'package:mocktail/mocktail.dart';
 
-/* Do not use, use mocks...  >  class BadMockNewService implements NewsService {
-  bool getArticlesCalled = false;
-
-  @override
-  Future<List<Article>> getArticles() async {
-    getArticlesCalled = true;
-
-    return [
-      Article(title: "Test1", content: "Test 1 content"),
-      Article(title: "Test2", content: "Test 2 content"),
-      Article(title: "Test3", content: "Test 3 content"),
-    ];
-  }
-} */
-
 class MockNewsService extends Mock implements NewsService {}
 
 void main() {
